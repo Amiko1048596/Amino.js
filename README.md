@@ -2,7 +2,7 @@ How to use?
 
 Example:
 
-const Client=require("./client").Client;
+const Client=require("./aminojs/client").Client;
 
 const main=async function(){
 client=new Client();
