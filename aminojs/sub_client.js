@@ -406,8 +406,8 @@ class SubClient extends Client {
         if (message && file) {
             `${message}`.replaceAll("<$", "‎‏").replace("$>", "‬‭");
         }
+        let mentions = [];
         if (mentionUserIds) {
-            let mentions = [];
             for (mention_uid of mentionUserIds)
                 mentions.push({
                     "uid": mention_uid
