@@ -1,43 +1,43 @@
-const helpers=require('./helpers.js');
+const helpers = require('./helpers.js');
 
-class Session{
-	constructor(sid=null, auid=null, deviceId=null, userAgent=null){
-		this.sid=sid;
-		this.auid=auid;
-		this.deviceId=deviceId;
-	}
+class Session {
+    constructor(sid = null, auid = null, deviceId = null, userAgent = null) {
+        this.sid = sid;
+        this.auid = auid;
+        this.deviceId = deviceId;
+    }
 };
-		
-class ApisHeaders{
-	constructor(session=null, data=null, deviceId=null, type=null, sig=null){
-		this.headers={
-			"Accept-Language": "en-US",
+
+class ApisHeaders {
+    constructor(session = null, data = null, deviceId = null, type = null, sig = null) {
+        this.headers = {
+            "Accept-Language": "en-US",
             "Content-Type": "application/x-www-form-urlencoded",
-			"AUID": helpers.uuid4(),
+            "AUID": helpers.uuid4(),
             "User-Agent": "Apple iPhone14,2 iOS v16.3 Main/3.22.0",
-			"Connection": "Keep-Alive",
+            "Connection": "Keep-Alive",
             "Host": "service.aminoapps.com",
             "Accept-Encoding": "gzip",
-		};
-		if(data){
-			this.headers["Content-Type"]="application/json; charset=utf-8";
-			this.headers["Content-Length"]=`${data}`.length;
-			this.headers["NDC-MSG-SIG"]=helpers.signature(data);
-		}
-		if(type) this.headers["Content-Type"]=type;
-		if(deviceId) this.headers["NDCDEVICEID"]=deviceId;
-		if(sig) this.headers["NDC-MSG-SIG"]=sig;
-		if(session){
-			if(session.sid) this.headers["NDCAUTH"]=`sid=${session.sid}`;
-			if(session.auid) this.headers["AUID"]=session.auid;
-			if(session.deviceId) this.headers["NDCDEVICEID"]=session.deviceId;
-		}
-	}
+        };
+        if (data) {
+            this.headers["Content-Type"] = "application/json; charset=utf-8";
+            this.headers["Content-Length"] = `${data}`.length;
+            this.headers["NDC-MSG-SIG"] = helpers.signature(data);
+        }
+        if (type) this.headers["Content-Type"] = type;
+        if (deviceId) this.headers["NDCDEVICEID"] = deviceId;
+        if (sig) this.headers["NDC-MSG-SIG"] = sig;
+        if (session) {
+            if (session.sid) this.headers["NDCAUTH"] = `sid=${session.sid}`;
+            if (session.auid) this.headers["AUID"] = session.auid;
+            if (session.deviceId) this.headers["NDCDEVICEID"] = session.deviceId;
+        }
+    }
 };
 
-class TapJoy{
-	constructor(userId=null){
-		this.data = {
+class TapJoy {
+    constructor(userId = null) {
+        this.data = {
             "reward": {
                 "ad_unit_id": "t00_tapjoy_android_master_checkinwallet_rewardedvideo_322",
                 "credentials_type": "publisher",
@@ -94,18 +94,20 @@ class TapJoy{
             "session_id": "7fe1956a-6184-4b59-8682-04ff31e24bc0",
             "date_created": 1633283996
         }
-	}
-	headers(){
-		return {
-				"cookies": "__cfduid=d0c98f07df2594b5f4aad802942cae1f01619569096",
-				"authorization": "Basic NWJiNTM0OWUxYzlkNDQwMDA2NzUwNjgwOmM0ZDJmYmIxLTVlYjItNDM5MC05MDk3LTkxZjlmMjQ5NDI4OA==",
-				"X-Tapdaq-SDK-Version": "android-sdk_7.1.1",
-				"Content-Type": "application/x-www-form-urlencoded",
-				"User-Agent": "Dalvik/2.1.0 (Linux; U; Android 10; Redmi Note 9 Pro Build/QQ3A.200805.001; com.narvii.amino.master/3.4.33585)"
-		};
-	}
+    }
+    headers() {
+        return {
+            "cookies": "__cfduid=d0c98f07df2594b5f4aad802942cae1f01619569096",
+            "authorization": "Basic NWJiNTM0OWUxYzlkNDQwMDA2NzUwNjgwOmM0ZDJmYmIxLTVlYjItNDM5MC05MDk3LTkxZjlmMjQ5NDI4OA==",
+            "X-Tapdaq-SDK-Version": "android-sdk_7.1.1",
+            "Content-Type": "application/x-www-form-urlencoded",
+            "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 10; Redmi Note 9 Pro Build/QQ3A.200805.001; com.narvii.amino.master/3.4.33585)"
+        };
+    }
 };
 
-module.exports={
-	Session, ApisHeaders, TapJoy
+module.exports = {
+    Session,
+    ApisHeaders,
+    TapJoy
 };
