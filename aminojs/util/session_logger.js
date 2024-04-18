@@ -1,5 +1,6 @@
 const fs = require('node:fs');
 const helpers = require('./helpers');
+const input=require('prompt-sync')();
 
 class Stored {
     constructor() {
@@ -122,7 +123,7 @@ class Stored {
         } else {
             this.list_all_sessions()
         }
-        let key = keys[Number(helpers.input(">")) - 1];
+        let key = keys[Number(input(">")) - 1];
         let session = {};
         session[key] = sessions[key];
         return session;

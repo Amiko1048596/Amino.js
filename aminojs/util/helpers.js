@@ -9,15 +9,6 @@ function uuid4() {
     return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c => (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16));
 }
 
-function input(msg) {
-    fs.writeSync(1, String(msg));
-    let s = '',
-        buf = Buffer.alloc(1);
-    while (buf[0] - 10 && buf[0] - 13)
-        s += buf, fs.readSync(0, buf, 0, 1, 0);
-    return s.slice(1);
-}
-
 function gen_deviceId(data = null) {
     if (data && Object.getPrototypeOf(data).constructor.name === "String") data = Buffer.from(data, 'hex');
     let identifier = Buffer.concat([PREFIX, data ?? crypto.randomBytes(20)]);
@@ -49,7 +40,6 @@ function sid_to_ip_address(SID) {
 
 module.exports = {
     uuid4,
-    input,
     PREFIX,
     SIG_KEY,
     DEVICE_KEY,
