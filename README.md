@@ -1,7 +1,7 @@
-How to use?
+# AminoApps.js
 
-Example:
-
+### Example:
+```js
 const Client=require("./aminojs/client").Client;
 
 const main=async function(){
@@ -10,3 +10,4 @@ console.log(await client.login("email", "pass"));
 console.log(await client.get_chat_threads());
 }
 main();
+```
