@@ -47,3 +47,24 @@ const main=async function(){
 main();
 
 ```
+### Creating a bot:
+```js
+const Socket=require("./aminojs/ws_client").SocketHandler;
+const Callbacks=require("./aminojs/ws_client").Callbacks;
+const Client=require("./aminojs/client").Client;
+
+
+const main=async function(){
+  client=new Client();
+  await client.login("email", "pass")
+  websocket=new Socket(client);
+  class Bot extends Callbacks{
+    constructor(){super();}
+    on_text_message(data){
+      console.log(data);
+    }
+  }
+  websocket.start(new Bot());
+}
+main();
+```
