@@ -1,4 +1,4 @@
-# AminoApps.js
+# Amino.js
 
 ### Example:
 ```js
