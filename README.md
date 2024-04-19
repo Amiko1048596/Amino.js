@@ -11,11 +11,39 @@ const main=async function(){
 }
 main();
 ```
-### Another example:
+### Creating a bot:
 ```js
+const Socket=require("./aminojs/ws_client").SocketHandler;
+const Callbacks=require("./aminojs/ws_client").Callbacks;
+const Client=require("./aminojs/client").Client;
+
+
+const main=async function(){
+  client=new Client();
+  await client.login("email", "pass")
+  websocket=new Socket(client);
+  class Bot extends Callbacks{
+    constructor(){super();}
+    on_text_message(data){
+      console.log(data);
+    }
+  }
+  websocket.start(new Bot());
+}
+main();
+```
+### Websocket actions:
+```js
+const Socket=require("./aminojs/ws_client").SocketHandler;
+const WSS=require("./aminojs/ws_client").WSS;
+const Callbacks=require("./aminojs/ws_client").Callbacks;
 const Client=require("./aminojs/client").Client;
 const SubClient=require("./aminojs/sub_client").SubClient;
 const input=require('prompt-sync')();
+
+function sleep(s) {
+  return new Promise(resolve => setTimeout(resolve, s * 1000));
+}
 
 async function choose_from_sub_clients(client, debug=false){
   let subClients=(await client.sub_clients())["communityList"];
@@ -37,26 +65,11 @@ async function choose_from_chat_threads(client, debug=false){
 
 const main=async function(){
   client=new Client();
-  await client.login("email", "pass")
+  await client.login("pass", "email")
   let ndcId=await choose_from_sub_clients(client);
   console.log(ndcId);
   subClient=new SubClient(client=client, ndcId=ndcId);
   let threadId=await choose_from_chat_threads(subClient);
-  await subClient.send_message(threadId, "test");
-}
-main();
-
-```
-### Creating a bot:
-```js
-const Socket=require("./aminojs/ws_client").SocketHandler;
-const Callbacks=require("./aminojs/ws_client").Callbacks;
-const Client=require("./aminojs/client").Client;
-
-
-const main=async function(){
-  client=new Client();
-  await client.login("email", "pass")
   websocket=new Socket(client);
   class Bot extends Callbacks{
     constructor(){super();}
@@ -64,7 +77,11 @@ const main=async function(){
       console.log(data);
     }
   }
-  websocket.start(new Bot());
+  websocket.callbacks=new Bot();
+  await websocket.run_amino_socket();
+  await sleep(5);
+  let wss=new WSS(client, websocket, ndcId, threadId);
+  await wss.online();
 }
 main();
 ```
