@@ -82,6 +82,7 @@ const main=async function(){
   await sleep(5);
   let wss=new WSS(client, websocket, ndcId, threadId);
   await wss.online();
+  await wss.video_player();
 }
 main();
 ```
