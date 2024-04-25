@@ -1,8 +1,9 @@
 # Amino.js
-
+### Installation:
+npm i amino228
 ### Example:
 ```js
-const Client=require("./aminojs/client").Client;
+const Client=require("amino228").Client;
 
 const main=async function(){
   client=new Client();
@@ -13,9 +14,9 @@ main();
 ```
 ### Creating a bot:
 ```js
-const Socket=require("./aminojs/ws_client").SocketHandler;
-const Callbacks=require("./aminojs/ws_client").Callbacks;
-const Client=require("./aminojs/client").Client;
+const Socket=require("amino228").SocketHandler;
+const Callbacks=require("amino228").Callbacks;
+const Client=require("amino228").Client;
 
 
 const main=async function(){
@@ -34,11 +35,11 @@ main();
 ```
 ### Websocket actions:
 ```js
-const Socket=require("./aminojs/ws_client").SocketHandler;
-const WSS=require("./aminojs/ws_client").WSS;
-const Callbacks=require("./aminojs/ws_client").Callbacks;
-const Client=require("./aminojs/client").Client;
-const SubClient=require("./aminojs/sub_client").SubClient;
+const Socket=require("amino228").SocketHandler;
+const WSS=require("amino228").WSS;
+const Callbacks=require("amino228").Callbacks;
+const Client=require("amino228").Client;
+const SubClient=require("amino228").SubClient;
 const input=require('prompt-sync')();
 
 function sleep(s) {
@@ -65,7 +66,7 @@ async function choose_from_chat_threads(client, debug=false){
 
 const main=async function(){
   client=new Client();
-  await client.login("pass", "email")
+  await client.login("email", "pass")
   let ndcId=await choose_from_sub_clients(client);
   console.log(ndcId);
   subClient=new SubClient(client=client, ndcId=ndcId);
