@@ -3,5 +3,27 @@
     "node-fetch": "^3.3.2",
     "prompt-sync": "^4.2.0",
     "ws": "^8.16.0"
-  }
+  },
+  "name": "aminojs",
+  "version": "1.0.0",
+  "description": "Aminoapps wrapper",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amiko1048596/Amino.js.git"
+  },
+  "keywords": [
+    "aminojs",
+    "amino-js"
+  ],
+  "author": "Amiko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Amiko1048596/Amino.js/issues"
+  },
+  "homepage": "https://github.com/Amiko1048596/Amino.js#readme"
 }
