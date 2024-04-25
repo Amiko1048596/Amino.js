@@ -1,6 +1,7 @@
 const helpers = require("./util/helpers.js");
 const headers = require("./util/headers.js");
 const session_logger = require("./util/session_logger.js");
+const input=require('prompt-sync')();
 import('node-fetch');
 
 class Client {
@@ -28,20 +29,27 @@ class Client {
                 headers: headers,
                 body: data,
             }).then(res => res.text()).then(data => {
-                try {
+                try{
                     data = JSON.parse(data);
                     if (data["api:statuscode"] != 0) {
                         console.log(data);
-                        throw data;
+                        input();
+                        return;
                     }
                     return resolve(data);
-                } catch {
+                } catch (e){
+                    console.log("Error", e.stack);
+                    console.log("Error", e.name);
+                    console.log("Error", e.message);
                     console.log(data);
-                    throw data;
+                    input();
                 }
             }).catch((e) => {
-                console.log(e);
-                throw e;
+                console.log("Error", e.stack);
+                console.log("Error", e.name);
+                console.log("Error", e.message);
+                console.log(data);
+                input();
             });
         });
     }
@@ -300,11 +308,9 @@ class Client {
         return (await this.request("delete", `${this.api}/g/s/chat/thread/${threadId}/member/${userId}?allowRejoin=${allowRejoin}`));
     }
     async get_chat_messages(threadId, size = 25, pageToken = null) {
-        if (pageToken) {
-            let url = `${this.api}/g/s/chat/thread/${threadId}/message?v=2&pagingType=t&pageToken=${pageToken}&size=${size}`;
-        } else {
-            let url = `${this.api}/g/s/chat/thread/${threadId}/message?v=2&pagingType=t&size=${size}`;
-        }
+        let url;
+        if (pageToken) url = `${this.api}/g/s/chat/thread/${threadId}/message?v=2&pagingType=t&pageToken=${pageToken}&size=${size}`;
+        else url = `${this.api}/g/s/chat/thread/${threadId}/message?v=2&pagingType=t&size=${size}`;
         return (await this.request("get", url));
     }
     async get_message_info(threadId, messageId) {
